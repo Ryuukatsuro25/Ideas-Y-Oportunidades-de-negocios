@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Gestión de Inventario</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background: linear-gradient(135deg, #00a78e, #009688);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      header h1 {
+        font-size: 3em;
+        margin: 0;
+      }
+
+      /* Estilo para el icono de la casa */
+      .home-icon {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        cursor: pointer;
+      }
+
+      .home-icon img {
+        width: 40px;
+        height: 40px;
+      }
+
+      /* Estilo para el icono de usuario */
+      .user-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+
+      .user-icon img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: space-around;
+        background-color: #009688;
+        color: white;
+        margin-top: 20px;
+        padding: 10px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .tab {
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: background-color 0.3s, border-bottom 0.3s;
+      }
+
+      .tab.active {
+        border-bottom: 3px solid white;
+        font-weight: bold;
+      }
+
+      .tab:hover {
+        background-color: #00796b;
+      }
+
+      .tab-content {
+        display: none;
+        padding: 30px;
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        margin: 20px auto;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Formulario de Productos */
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      input[type="search"] {
+        padding: 10px;
+        margin: 10px 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #00a78e;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #009688;
+      }
+
+      /* Estilos de tabla */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #009688;
+        color: white;
+      }
+
+      td {
+        color: #555;
+      }
+
+      /* Botones de acción */
+      .action-button {
+        padding: 5px 10px;
+        background-color: #ff4c4c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .action-button.edit {
+        background-color: #ff9900;
+      }
+
+      .action-button:hover {
+        opacity: 0.8;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+        margin-top: 50px;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 0.9em;
+      }
+
+      /* Responsividad */
+      @media (max-width: 768px) {
+        .tabs {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .tab {
+          padding: 10px;
+        }
+
+        header h1 {
+          font-size: 2em;
+        }
+
+        .home-icon img,
+        .user-icon img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <!-- Icono de la casa para volver a la página principal -->
+      <div class="home-icon">
+        <a href="index.html">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/25/25694.png"
+            alt="Home Icon"
+          />
+        </a>
+      </div>
+      <h1>Gestión de Inventario</h1>
+
+      <!-- Icono de usuario para acceder al perfil -->
+      <div class="user-icon" id="userIcon">
+        <a href="Perfil.html">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            alt="User Icon"
+          />
+        </a>
+      </div>
+    </header>
+
+    <!-- Pestañas de navegación -->
+    <div class="tabs">
+      <div class="tab active" data-tab="inventario">Inventario General</div>
+      <div class="tab" data-tab="agregar">Agregar Producto</div>
+      <div class="tab" data-tab="movimientos">Historial de Movimientos</div>
+      <div class="tab" data-tab="reportes">Reportes</div>
+    </div>
+
+    <!-- Contenido de las pestañas -->
+    <div id="inventario" class="tab-content active">
+      <h2>Inventario General</h2>
+      <input type="search" id="searchInput" placeholder="Buscar productos..." />
+
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="agregar" class="tab-content">
+      <h2>Agregar Producto</h2>
+      <form id="inventoryForm">
+        <input
+          type="text"
+          id="productName"
+          placeholder="Nombre del producto"
+          required
+        />
+        <input
+          type="number"
+          id="productQuantity"
+          placeholder="Cantidad"
+          required
+          min="1"
+        />
+        <select id="quantityType" required>
+          <option value="" disabled selected>
+            Selecciona un tipo de cantidad
+          </option>
+          <option value="Kilos">Kilos</option>
+          <option value="Mililitros">Mililitros</option>
+          <option value="Litros">Litros</option>
+          <option value="Unidades">Unidades</option>
+          <option value="Metros">Metros</option>
+          <option value="Centímetros">Centímetros</option>
+        </select>
+        <input type="submit" value="Agregar Producto" />
+      </form>
+    </div>
+
+    <div id="movimientos" class="tab-content">
+      <h2>Historial de Movimientos</h2>
+      <ul id="movementsLog"></ul>
+    </div>
+
+    <div id="reportes" class="tab-content">
+      <h2>Reportes</h2>
+      <p>Total de productos en inventario: <span id="totalProducts">0</span></p>
+      <p>Total de cantidades: <span id="totalQuantities">0</span></p>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Inventariando. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+      const inventoryForm = document.getElementById("inventoryForm");
+      const inventoryTable = document
+        .getElementById("inventoryTable")
+        .getElementsByTagName("tbody")[0];
+      const searchInput = document.getElementById("searchInput");
+      const movementsLog = document.getElementById("movementsLog");
+      const totalProductsEl = document.getElementById("totalProducts");
+      const totalQuantitiesEl = document.getElementById("totalQuantities");
+
+      // Cargar inventario desde LocalStorage
+      let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+      let movements = JSON.parse(localStorage.getItem("movements")) || [];
+
+      // Mostrar productos al cargar la página
+      renderInventory();
+      renderMovements();
+      updateReport();
+
+      // Agregar producto al inventario
+      inventoryForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const productName = document.getElementById("productName").value.trim();
+        const productQuantity = parseInt(
+          document.getElementById("productQuantity").value,
+          10
+        );
+        const quantityType = document.getElementById("quantityType").value;
+
+        if (!productName || productQuantity <= 0 || !quantityType) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        // Verificar si el producto ya existe
+        const existingProduct = inventory.find(
+          (product) => product.name.toLowerCase() === productName.toLowerCase()
+        );
+
+        if (existingProduct) {
+          alert("Este producto ya existe. Intente editarlo.");
+        } else {
+          // Agregar nuevo producto
+          inventory.push({
+            name: productName,
+            quantity: `${productQuantity} ${quantityType}`,
+          });
+          localStorage.setItem("inventory", JSON.stringify(inventory));
+
+          // Registrar el movimiento
+          movements.push(
+            `Producto agregado: ${productName}, ${productQuantity} ${quantityType}`
+          );
+          localStorage.setItem("movements", JSON.stringify(movements));
+
+          renderInventory();
+          renderMovements();
+          updateReport();
+        }
+
+        inventoryForm.reset();
+      });
+
+      // Función para mostrar los productos
+      function renderInventory() {
+        inventoryTable.innerHTML = "";
+        inventory.forEach((product, index) => {
+          const newRow = inventoryTable.insertRow();
+          newRow.innerHTML = `
+                <td>${product.name}</td>
+                <td>${product.quantity}</td>
+                <td>
+                    <button class="action-button edit" onclick="editProduct(${index})">Editar</button>
+                    <button class="action-button" onclick="deleteProduct(${index})">Eliminar</button>
+                </td>
+            `;
+        });
+      }
+
+      // Función para eliminar un producto
+      function deleteProduct(index) {
+        const product = inventory[index];
+        inventory.splice(index, 1);
+        localStorage.setItem("inventory", JSON.stringify(inventory));
+
+        // Registrar el movimiento
+        movements.push(`Producto eliminado: ${product.name}`);
+        localStorage.setItem("movements", JSON.stringify(movements));
+
+        renderInventory();
+        renderMovements();
+        updateReport();
+      }
+
+      // Función para editar un producto
+      function editProduct(index) {
+        const product = inventory[index];
+        const newQuantity = prompt(
+          `Editar cantidad para ${product.name}:`,
+          product.quantity.split(" ")[0]
+        );
+        const quantityType = product.quantity.split(" ")[1];
+
+        if (newQuantity !== null && newQuantity > 0) {
+          inventory[index].quantity = `${newQuantity} ${quantityType}`;
+          localStorage.setItem("inventory", JSON.stringify(inventory));
+
+          // Registrar el movimiento
+          movements.push(
+            `Producto editado: ${product.name}, nueva cantidad: ${newQuantity} ${quantityType}`
+          );
+          localStorage.setItem("movements", JSON.stringify(movements));
+
+          renderInventory();
+          renderMovements();
+          updateReport();
+        } else {
+          alert("Ingrese una cantidad válida.");
+        }
+      }
+
+      // Filtrar productos en tiempo real
+      searchInput.addEventListener("input", function () {
+        const query = searchInput.value.toLowerCase();
+        const filteredInventory = inventory.filter((product) =>
+          product.name.toLowerCase().includes(query)
+        );
+
+        // Mostrar solo productos filtrados
+        inventoryTable.innerHTML = "";
+        filteredInventory.forEach((product, index) => {
+          const newRow = inventoryTable.insertRow();
+          newRow.innerHTML = `
+                <td>${product.name}</td>
+                <td>${product.quantity}</td>
+                <td>
+                    <button class="action-button edit" onclick="editProduct(${index})">Editar</button>
+                    <button class="action-button" onclick="deleteProduct(${index})">Eliminar</button>
+                </td>
+            `;
+        });
+      });
+
+      // Función para mostrar el historial de movimientos
+      function renderMovements() {
+        movementsLog.innerHTML = "";
+        movements.forEach((movement) => {
+          const li = document.createElement("li");
+          li.textContent = movement;
+          movementsLog.appendChild(li);
+        });
+      }
+
+      // Actualizar los reportes
+      function updateReport() {
+        totalProductsEl.textContent = inventory.length;
+        totalQuantitiesEl.textContent = inventory.reduce((total, product) => {
+          const quantity = parseInt(product.quantity.split(" ")[0]);
+          return total + quantity;
+        }, 0);
+      }
+
+      // Manejo de pestañas
+      const tabs = document.querySelectorAll(".tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          const target = tab.getAttribute("data-tab");
+          tabContents.forEach((content) => {
+            content.classList.remove("active");
+            if (content.id === target) {
+              content.classList.add("active");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
