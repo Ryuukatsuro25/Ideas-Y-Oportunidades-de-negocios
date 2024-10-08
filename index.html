@@ -108,12 +108,16 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease;
             text-align: center;
+            cursor: pointer;
         }
 
+        /* Cambiar a color más oscuro al pasar el mouse */
         .feature-box:hover {
             transform: scale(1.05);
+            background-color: #00796b;
+            color: white;
         }
 
         .feature-box h3 {
@@ -219,7 +223,7 @@
 
         <div class="features">
             <!-- Gestión de Inventario -->
-            <div class="feature-box">
+            <div class="feature-box" onclick="openTab('Inventario')">
                 <i class="fas fa-box"></i>
                 <h3>Control de Inventario</h3>
                 <p>
@@ -229,7 +233,7 @@
             </div>
 
             <!-- Gestión de Recursos -->
-            <div class="feature-box">
+            <div class="feature-box" onclick="openTab('Recursos')">
                 <i class="fas fa-users"></i>
                 <h3>Gestión de Recursos</h3>
                 <p>
@@ -239,7 +243,7 @@
             </div>
 
             <!-- Reportes Detallados -->
-            <div class="feature-box">
+            <div class="feature-box" onclick="openTab('Reportes')">
                 <i class="fas fa-chart-line"></i>
                 <h3>Reportes Detallados</h3>
                 <p>
@@ -250,7 +254,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 40px">
-            <a href="Funciones.html" class="cta-button">Descubre más funcionalidades</a>
+            <a href="home.html" class="cta-button">Descubre más funcionalidades</a>
         </div>
     </main>
 
@@ -270,17 +274,26 @@
 
         // Para cerrar el menú cuando se hace clic fuera de él
         window.onclick = function (event) {
-            if (
-                !event.target.matches(".user-menu") &&
-                !event.target.matches(".user-menu i")
-            ) {
+            if (!event.target.matches(".user-menu") && !event.target.matches(".user-menu i")) {
                 var dropdown = document.getElementById("dropdownMenu");
                 if (dropdown.style.display === "block") {
                     dropdown.style.display = "none";
                 }
             }
         };
+
+        // Función para abrir nuevas pestañas
+        function openTab(pageName) {
+            let url = "";
+            if (pageName === 'Inventario') {
+                url = "inventario.html";
+            } else if (pageName === 'Recursos') {
+                url = "recursos.html";
+            } else if (pageName === 'Reportes') {
+                url = "reportes.html";
+            }
+            window.open(url, '_blank');
+        }
     </script>
 </body>
 </html>
-
