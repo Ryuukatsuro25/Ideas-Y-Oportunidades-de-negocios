@@ -45,11 +45,59 @@
             color: white;
         }
 
+        /* Menú desplegable */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
         .features {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-top: 40px;
         }
 
         .feature-box {
@@ -65,9 +113,11 @@
             cursor: pointer;
         }
 
+        /* Cambiar a color más oscuro al pasar el mouse */
         .feature-box:hover {
             transform: scale(1.05);
-            background-color: #e0f7fa;
+            background-color: #00796b;
+            color: white;
         }
 
         .feature-box h3 {
@@ -87,15 +137,7 @@
             margin-bottom: 15px;
         }
 
-        .content-section {
-            display: none;
-            margin-top: 40px;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
+        /* Botón de llamada a la acción */
         .cta-button {
             display: inline-block;
             padding: 15px 30px;
@@ -113,6 +155,7 @@
             background-color: #009688;
         }
 
+        /* Estilo del footer */
         footer {
             text-align: center;
             padding: 20px;
@@ -127,6 +170,7 @@
             font-size: 0.9em;
         }
 
+        /* Responsividad */
         @media (max-width: 768px) {
             .features {
                 flex-direction: column;
@@ -146,17 +190,22 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 </head>
 <body>
     <header>
         <h1>Inventariando</h1>
         <p>El software de gestión que revoluciona el control de tu inventario</p>
 
+        <!-- Ícono de usuario -->
         <div class="user-menu" onclick="toggleDropdown()">
             <i class="fas fa-user-circle"></i>
         </div>
 
+        <!-- Menú desplegable -->
         <div id="dropdownMenu" class="dropdown">
             <a href="Registrarse.html">Registrarse</a>
             <a href="IniciarSesion.html">Iniciar sesión</a>
@@ -173,37 +222,39 @@
         </p>
 
         <div class="features">
-            <div class="feature-box" onclick="mostrarSeccion('inventario')">
+            <!-- Gestión de Inventario -->
+            <div class="feature-box" onclick="openTab('Inventario')">
                 <i class="fas fa-box"></i>
                 <h3>Control de Inventario</h3>
-                <p>Gestiona tu inventario en tiempo real con reportes detallados y alertas automáticas.</p>
+                <p>
+                    Gestiona tu inventario en tiempo real con reportes detallados y
+                    alertas automáticas cuando el stock esté bajo.
+                </p>
             </div>
-            <div class="feature-box" onclick="mostrarSeccion('recursos')">
+
+            <!-- Gestión de Recursos -->
+            <div class="feature-box" onclick="openTab('Recursos')">
                 <i class="fas fa-users"></i>
                 <h3>Gestión de Recursos</h3>
-                <p>Administra eficientemente los recursos humanos, financieros y logísticos en una plataforma todo en uno.</p>
+                <p>
+                    Administra eficientemente los recursos humanos, financieros y
+                    logísticos en una plataforma todo en uno.
+                </p>
             </div>
-            <div class="feature-box" onclick="mostrarSeccion('reportes')">
+
+            <!-- Reportes Detallados -->
+            <div class="feature-box" onclick="openTab('Reportes')">
                 <i class="fas fa-chart-line"></i>
                 <h3>Reportes Detallados</h3>
-                <p>Genera informes avanzados de inventarios y recursos para una mejor toma de decisiones estratégicas.</p>
+                <p>
+                    Genera informes avanzados de inventarios y recursos para una mejor
+                    toma de decisiones estratégicas.
+                </p>
             </div>
         </div>
 
-        <!-- Secciones de contenido que se muestran al hacer clic -->
-        <div id="inventario" class="content-section">
-            <h2>Control de Inventario</h2>
-            <p>Aquí puedes gestionar tu inventario en tiempo real...</p>
-        </div>
-
-        <div id="recursos" class="content-section">
-            <h2>Gestión de Recursos</h2>
-            <p>Aquí puedes administrar tus recursos humanos, financieros, y logísticos...</p>
-        </div>
-
-        <div id="reportes" class="content-section">
-            <h2>Reportes Detallados</h2>
-            <p>Aquí puedes generar informes avanzados sobre tu inventario...</p>
+        <div style="text-align: center; margin-top: 40px">
+            <a href="home.html" class="cta-button">Descubre más funcionalidades</a>
         </div>
     </main>
 
@@ -221,34 +272,30 @@
             }
         }
 
-        // Para mostrar las secciones al hacer clic en una característica
-        function mostrarSeccion(seccionId) {
-            // Ocultar todas las secciones
-            var secciones = document.querySelectorAll('.content-section');
-            secciones.forEach(function(seccion) {
-                seccion.style.display = 'none';
-            });
-
-            // Mostrar la sección seleccionada
-            var seccion = document.getElementById(seccionId);
-            if (seccion) {
-                seccion.style.display = 'block';
-            }
-        }
-
-        // Cerrar el menú cuando se hace clic fuera de él
+        // Para cerrar el menú cuando se hace clic fuera de él
         window.onclick = function (event) {
-            if (
-                !event.target.matches(".user-menu") &&
-                !event.target.matches(".user-menu i")
-            ) {
+            if (!event.target.matches(".user-menu") && !event.target.matches(".user-menu i")) {
                 var dropdown = document.getElementById("dropdownMenu");
                 if (dropdown.style.display === "block") {
                     dropdown.style.display = "none";
                 }
             }
         };
+
+        // Función para abrir nuevas pestañas
+        function openTab(pageName) {
+            let url = "";
+            if (pageName === 'Inventario') {
+                url = "inventario.html";
+            } else if (pageName === 'Recursos') {
+                url = "recursos.html";
+            } else if (pageName === 'Reportes') {
+                url = "reportes.html";
+            }
+            window.open(url, '_blank');
+        }
     </script>
 </body>
 </html>
+
 
