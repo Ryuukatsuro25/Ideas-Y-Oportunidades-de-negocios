@@ -40,8 +40,9 @@
             cursor: pointer;
         }
 
+        /* Aumentar tamaño del ícono de perfil */
         .user-menu i {
-            font-size: 1.8em;
+            font-size: 3em;
             color: white;
         }
 
@@ -113,7 +114,6 @@
             cursor: pointer;
         }
 
-        /* Cambiar a color más oscuro al pasar el mouse */
         .feature-box:hover {
             transform: scale(1.05);
             background-color: #00796b;
@@ -186,7 +186,7 @@
             }
 
             .user-menu i {
-                font-size: 1.5em;
+                font-size: 2.5em;
             }
         }
     </style>
@@ -292,7 +292,7 @@
             } else if (pageName === 'Reportes') {
                 url = "reportes.html";
             }
-            window.open(url, '_blank');
+            window.location.href = url;
         }
     </script>
 </body>
