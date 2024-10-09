@@ -45,6 +45,55 @@
             color: white;
         }
 
+        /* Menú desplegable */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
         .features {
             display: flex;
             justify-content: space-between;
@@ -64,8 +113,11 @@
             cursor: pointer;
         }
 
+        /* Cambiar a color más oscuro al pasar el mouse */
         .feature-box:hover {
-            background-color: #e0f7fa;
+            transform: scale(1.05);
+            background-color: #00796b;
+            color: white;
         }
 
         .feature-box h3 {
@@ -83,6 +135,24 @@
             font-size: 3em;
             color: #00a78e;
             margin-bottom: 15px;
+        }
+
+        /* Botón de llamada a la acción */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #00a78e;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 30px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #009688;
         }
 
         /* Estilo del footer */
@@ -119,17 +189,11 @@
                 font-size: 1.5em;
             }
         }
-
-        .section {
-            display: none;
-            padding: 20px;
-        }
-
-        .section.active {
-            display: block;
-        }
-
     </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 </head>
 <body>
     <header>
@@ -137,49 +201,61 @@
         <p>El software de gestión que revoluciona el control de tu inventario</p>
 
         <!-- Ícono de usuario -->
-        <div class="user-menu">
+        <div class="user-menu" onclick="toggleDropdown()">
             <i class="fas fa-user-circle"></i>
+        </div>
+
+        <!-- Menú desplegable -->
+        <div id="dropdownMenu" class="dropdown">
+            <a href="Registrarse.html">Registrarse</a>
+            <a href="IniciarSesion.html">Iniciar sesión</a>
         </div>
     </header>
 
     <main>
-        <!-- Opciones del menú principal -->
+        <h1>¿Qué es Inventariando?</h1>
+        <p>
+            Inventariando es una solución innovadora para la gestión de inventarios
+            y recursos. Con su interfaz fácil de usar y sus funcionalidades
+            avanzadas, permite a las empresas mantener el control total de su stock,
+            optimizando su logística y recursos en tiempo real.
+        </p>
+
         <div class="features">
-            <div class="feature-box" onclick="showSection('inventario')">
+            <!-- Gestión de Inventario -->
+            <div class="feature-box" onclick="openTab('Inventario')">
                 <i class="fas fa-box"></i>
                 <h3>Control de Inventario</h3>
-                <p>Gestiona tu inventario en tiempo real con reportes detallados y alertas automáticas cuando el stock esté bajo.</p>
+                <p>
+                    Gestiona tu inventario en tiempo real con reportes detallados y
+                    alertas automáticas cuando el stock esté bajo.
+                </p>
             </div>
 
-            <div class="feature-box" onclick="showSection('recursos')">
+            <!-- Gestión de Recursos -->
+            <div class="feature-box" onclick="openTab('Recursos')">
                 <i class="fas fa-users"></i>
                 <h3>Gestión de Recursos</h3>
-                <p>Administra eficientemente los recursos humanos, financieros y logísticos en una plataforma todo en uno.</p>
+                <p>
+                    Administra eficientemente los recursos humanos, financieros y
+                    logísticos en una plataforma todo en uno.
+                </p>
             </div>
 
-            <div class="feature-box" onclick="showSection('reportes')">
+            <!-- Reportes Detallados -->
+            <div class="feature-box" onclick="openTab('Reportes')">
                 <i class="fas fa-chart-line"></i>
                 <h3>Reportes Detallados</h3>
-                <p>Genera informes avanzados de inventarios y recursos para una mejor toma de decisiones estratégicas.</p>
+                <p>
+                    Genera informes avanzados de inventarios y recursos para una mejor
+                    toma de decisiones estratégicas.
+                </p>
             </div>
         </div>
 
-        <!-- Secciones dinámicas que aparecerán según la opción seleccionada -->
-        <div id="inventario" class="section">
-            <h1>Control de Inventario</h1>
-            <p>Aquí puedes gestionar todos los aspectos de tu inventario.</p>
+        <div style="text-align: center; margin-top: 40px">
+            <a href="home.html" class="cta-button">Descubre más funcionalidades</a>
         </div>
-
-        <div id="recursos" class="section">
-            <h1>Gestión de Recursos</h1>
-            <p>Aquí puedes gestionar todos los recursos de tu empresa.</p>
-        </div>
-
-        <div id="reportes" class="section">
-            <h1>Reportes Detallados</h1>
-            <p>Aquí puedes ver los reportes detallados sobre el inventario y los recursos.</p>
-        </div>
-
     </main>
 
     <footer>
@@ -187,16 +263,39 @@
     </footer>
 
     <script>
-        function showSection(sectionId) {
-            // Oculta todas las secciones
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
+        function toggleDropdown() {
+            var dropdown = document.getElementById("dropdownMenu");
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                dropdown.style.display = "block";
+            }
+        }
 
-            // Muestra la sección correspondiente
-            const activeSection = document.getElementById(sectionId);
-            activeSection.classList.add('active');
+        // Para cerrar el menú cuando se hace clic fuera de él
+        window.onclick = function (event) {
+            if (!event.target.matches(".user-menu") && !event.target.matches(".user-menu i")) {
+                var dropdown = document.getElementById("dropdownMenu");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            }
+        };
+
+        // Función para abrir nuevas pestañas
+        function openTab(pageName) {
+            let url = "";
+            if (pageName === 'Inventario') {
+                url = "inventario.html";
+            } else if (pageName === 'Recursos') {
+                url = "recursos.html";
+            } else if (pageName === 'Reportes') {
+                url = "reportes.html";
+            }
+            window.open(url, '_blank');
         }
     </script>
 </body>
 </html>
+
 
